@@ -19,7 +19,7 @@ public class SearchSuffixIndir
 
        String dir="E:/work/source/tag/openbilling60_20130516/infosystem64/ims-core/config";
        int size=0;
-       for(File file:searchFiles(dir,".xml")){
+       for(File file:searchFiles(dir,null,".xml")){
            System.out.println(file.getAbsolutePath());
            size++;
        }
@@ -28,20 +28,29 @@ public class SearchSuffixIndir
  
     }
     
-    public static  List<File> searchFiles(String searchDir,final String searchSuffix ){
+    public static  List<File> searchFiles(String searchDir,final String prefix,final String suffix ){
         File dir = new File(searchDir);
         FilenameFilter filenameFilter = new FilenameFilter()
         {
             @Override
             public boolean accept(File dir, String name)
             {
-                return name.endsWith(searchSuffix);
+                if(notEmpty(prefix)&&notEmpty(suffix)){
+                    return name.startsWith(prefix)&&name.endsWith(suffix);
+                }else if(notEmpty(prefix)){
+                return name.startsWith(prefix);
+                }
+                    return name.endsWith(suffix);
+                
             }
         };
         ArrayList<File> list = new ArrayList<File>();
 
         writeToList(dir, filenameFilter, list); 
         return list;
+    }
+    private static boolean notEmpty(String str){
+        return null!=str&&!str.trim().equals("");
     }
     
 

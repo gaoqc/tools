@@ -4,17 +4,25 @@ import java.util.Collection;
 
 public class PrintUtil
 {
-  public static void print(String ...str){
+  public static String print(String ...str){
       StringBuffer sb=new StringBuffer();
       for(String s:str){
           sb.append(s);
       }
-      System.out.println(sb.toString());
+      String result= sb.toString();
+      System.out.println(result);
+      return result;
   }
- public static void print(Collection<String> collect){
-     for(String str:collect){
-         print(str);
-     }
- }
+  public static String print(Collection<String> collect){
+      StringBuffer sb=new StringBuffer();
+      for(String str:collect){
+          print(str);
+          sb.append(str);
+      }
+      return sb.toString();
+      
+      
+  }
+ 
   
 }
